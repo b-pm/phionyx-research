@@ -100,18 +100,31 @@ There is no Phionyx schema, no input-gate decision, no kill-switch fields, and n
 
 ### After (same producer, wrapped)
 
-A successful turn from the example looks like this shape (field values vary; structure is stable):
+A successful turn from `with_orchestrator.py` always includes the fields below (values vary; **keys and nesting match the live emitter**):
 
 ```json
 {
   "schema_version": "phionyx-governed-response/0.1",
   "turn_id": 1,
+  "timestamp_utc": "2026-09-09T11:00:00+00:00",
   "input": {
     "user_text": "…",
     "safety": { "allowed": true, "reason": null }
   },
-  "state": { "arousal": 0.47, "valence": 0.1, "entropy": 0.26 },
-  "phi": { "phi": 0.94899 },
+  "state": {
+    "arousal": 0.47,
+    "valence": 0.1,
+    "entropy": 0.26,
+    "resonance": 0.123456,
+    "stability": 0.654321
+  },
+  "phi": {
+    "phi": 0.94899,
+    "phi_cognitive": 0.91,
+    "phi_physical": 0.98,
+    "weight_cognitive": 0.6,
+    "weight_physical": 0.4
+  },
   "governance": {
     "kill_switch_state": "armed",
     "kill_switch_triggered": false,
@@ -128,7 +141,7 @@ A successful turn from the example looks like this shape (field values vary; str
 }
 ```
 
-Illustrative happy-path output from a local `pretend` run of the example; regenerate with the commands above rather than treating these numbers as fixtures.
+Illustrative happy-path shape from the example’s `govern()` path; regenerate with the commands above rather than treating these numbers as fixtures. The input-gate reject envelope (next section) intentionally omits `timestamp_utc` / `state` / `phi` / `governance` — that shorter form is also canonical for early refuse.
 
 ### What gets blocked
 
