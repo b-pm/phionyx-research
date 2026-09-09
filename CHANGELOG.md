@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Docs — LangChain governance wrap tutorial** (`docs/integration/from-langchain-orchestrator.md`):
+  narrative walkthrough for adding Phionyx as a governance wrapper around an
+  existing LangChain producer, using `examples/comparison/with_orchestrator.py`
+  as the canonical reference (no forked example). Cross-linked from
+  `examples/comparison/README.md`. Addresses
+  [halvrenofviryel/phionyx-research#72](https://github.com/halvrenofviryel/phionyx-research/issues/72).
+
 ---
 
 ## [0.9.1] — 2026-08-10
