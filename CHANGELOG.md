@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Adversarial demo — memory poisoning (OWASP T1)** (`examples/adversarial/memory_poisoning.py`):
+  side-by-side ungoverned vs governed path when durable memory is poisoned and
+  retrieved on the next turn. Listed in `examples/adversarial/README.md` and
+  cited from the T1 evidence row in `docs/mappings/owasp-agentic-ai-2025.md`.
+  Addresses [halvrenofviryel/phionyx-research#71](https://github.com/halvrenofviryel/phionyx-research/issues/71).
+
 ---
 
 ## [0.9.1] — 2026-08-10
