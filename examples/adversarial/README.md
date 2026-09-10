@@ -20,7 +20,7 @@ cd phionyx-research
 | [`unsafe_action_blocked.py`](unsafe_action_blocked.py) | A surface-clean prompt asking for substantively unsafe content (phishing message). | OWASP T6, T9 · NIST AI RMF MEASURE / MANAGE |
 | [`policy_conflict_resolution.py`](policy_conflict_resolution.py) | An RBAC-authorised user requests a manipulative action (RBAC vs ethics). | OWASP T6, T7 · EU AI Act Art. 9 (risk management) |
 | [`audit_replay_after_block.py`](audit_replay_after_block.py) | Auditor re-derives a blocked turn's hash and detects tampering. | OWASP T8 · EU AI Act Art. 12 · NIST AI RMF MANAGE.1, MANAGE.4 |
-| [`memory_poisoning.py`](memory_poisoning.py) | Poisoned durable memory retrieved on the next turn influences a funds-transfer tool call. | OWASP T1 |
+| [`memory_poisoning.py`](memory_poisoning.py) | Poisoned durable memory retrieved on the next turn influences a funds-transfer tool call. Governed path uses a **scenario-local authorization-source surrogate** (not core block-16 `knowledge_boundary`) and asserts the ungoverned/governed differential. | OWASP T1 (mitigation-pattern demo) |
 
 ## Run them
 
