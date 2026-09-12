@@ -75,7 +75,7 @@ embeds its outputs.
 
 | # | Demo | Shows | Run time | API key |
 |---|------|-------|----------|---------|
-| 01 | [Determinism and Physics](examples/notebooks/01_determinism_and_physics.ipynb) | `EchoState2`, `calculate_phi_v2_1`, 1000-run determinism proof, valence × arousal Φ heatmap, side-by-side with a noisy alternative | ~30 s | No |
+| 01 | [Determinism and Physics](examples/notebooks/01_determinism_and_physics.ipynb) | `EchoState2`, `calculate_phi_v2_1`, 1000-run determinism check (notebook-scoped, fixed inputs), valence × arousal Φ heatmap, side-by-side with a noisy alternative | ~30 s | No |
 | 02 | [Kill Switch in Action](examples/notebooks/02_kill_switch_in_action.ipynb) | `KillSwitch` with 4 triggers + NaN fail-closed guard, hash-chained event log | ~5 s | No |
 | 03 | [Pipeline Blocks and Audit](examples/notebooks/03_pipeline_blocks_and_audit.ipynb) | Canonical 46-block pipeline (v3.8.0), custom `PipelineBlock` subclass, 100-run determinism | ~5 s | No |
 | 04 | [FastAPI wrapper](examples/fastapi/) | HTTP `/govern` endpoint over the governance pipeline | <1 min | No |
@@ -172,7 +172,7 @@ separate 5-layer governance stack in which the self-governance gate
 - **Evidence schemas (v0.9.0)** — additive `contracts/v4`: forensics-lite decision receipt, agent SLA metrics, evidence identifier (`phionyx:trace:…`), learning-decision & group-execution records, novelty clearance, and abstention
 
 **Engine Layer 3 — Semantic Time Memory**
-- Impact-weighted cache eviction (+24% vs LRU, +72% vs FIFO)
+- Impact-weighted cache eviction (+24% retention vs LRU, +72% vs FIFO in the first-party benchmark suite `tests/benchmarks/` on fixture workloads; not a production measurement)
 - Monotonic semantic clock (t_local, t_global)
 - Phi-decay for memory relevance
 
@@ -269,7 +269,7 @@ Each record carries a fixed set of groups — `subject`, `input`, `claim`, `outp
 
 **Where Phionyx sits:** the Phionyx **Reasoned Governance Envelope (RGE)** is developed alongside AIREP and matures by conforming toward the format. RGE is a Phionyx *profile* of AIREP, not the format itself; a released conformant projection from RGE into AIREP is not yet implemented.
 
-AIREP is **experimental — a *proposed* open format, not a ratified standard**, with no conformant producer yet. The format (`phionyx-core` engine, the RGE producer, and AIREP itself) carries **independent version lines** — engine **v0.9.0**, AIREP **v0.1 (Experimental)** — which must never be cross-attributed.
+AIREP is **experimental — a *proposed* open format, not a ratified standard**. AIREP v0.2.0-beta.1 was published on 9 September 2026 as an experimental prerelease: it ships a first-party Python producer for Decision, Control, Execution and Effect artifacts, runnable lifecycle examples and structured reconciliation; the v0.1 line remains frozen and supported. External implementation results are version- and role-specific — an independently authored producer measured against frozen v0.1.2, and an independently implemented consumer/verifier measured against an earlier v0.2 handoff — and they do not establish same-beta producer-to-consumer interoperability. The format (`phionyx-core` engine, the RGE producer, and AIREP itself) carries **independent version lines** — engine **v0.9.1** (PyPI), AIREP **v0.2.0-beta.1** (experimental prerelease; v0.1 frozen and supported) — which must never be cross-attributed.
 
 - Spec: CC-BY-4.0 · Reference code: Apache-2.0
 - DOI: concept [10.5281/zenodo.20475136](https://doi.org/10.5281/zenodo.20475136) · v0.1 [10.5281/zenodo.20475137](https://doi.org/10.5281/zenodo.20475137)
@@ -342,10 +342,10 @@ It performs no destructive action and makes no external effect — each "attempt
 
 Phionyx publishes **evidence mappings** — not certifications — connecting runtime artifacts to industry threat models and risk frameworks (helpers packaged as `phionyx-compliance` on PyPI):
 
-- [`docs/mappings/owasp-agentic-ai-2025.md`](docs/mappings/owasp-agentic-ai-2025.md) — OWASP Agentic AI Threats v1.0 (15 categories, 1 Full / 10 Partial / 4 Gap)
-- [`docs/mappings/eu-ai-act.md`](docs/mappings/eu-ai-act.md) — EU AI Act Articles 9–15 high-risk obligations (1 Full / 5 Partial / 1 Gap, with explicit deployer-responsibility per article)
-- [`docs/mappings/nist-ai-rmf.md`](docs/mappings/nist-ai-rmf.md) — NIST AI RMF 1.0 four functions (Govern / Map / Measure / Manage; 1 Full / 3 Partial within the runtime perimeter, with explicit deployer-responsibility per function)
-- [`docs/mappings/iso-42001.md`](docs/mappings/iso-42001.md) — ISO/IEC 42001:2023 AI Management System — 15 control-type rows (1 Full / 8 Partial / 6 Gap) **draft**; Annex A identifier accuracy requires paid-text verification
+- [`docs/mappings/owasp-agentic-ai-2025.md`](docs/mappings/owasp-agentic-ai-2025.md) — OWASP Agentic AI Threats v1.0 (15 categories, 0 Full / 12 Partial / 3 Gap — row-counted on 2026-08-05 inside the mapping; mapped against Phionyx v0.3.0, not the current release)
+- [`docs/mappings/eu-ai-act.md`](docs/mappings/eu-ai-act.md) — EU AI Act Articles 9–15 high-risk obligations (0 Full / 6 Partial / 1 Gap after the 2026-08-02 Article 12 correction; mapped against Phionyx v0.3.0; with explicit deployer-responsibility per article)
+- [`docs/mappings/nist-ai-rmf.md`](docs/mappings/nist-ai-rmf.md) — NIST AI RMF 1.0 four functions (Govern / Map / Measure / Manage; 0 Full / 4 Partial / 0 Gap within the runtime perimeter after the 2026-08-02 MANAGE correction; mapped against Phionyx v0.3.0; with explicit deployer-responsibility per function)
+- [`docs/mappings/iso-42001.md`](docs/mappings/iso-42001.md) — ISO/IEC 42001:2023 AI Management System — 15 control-type rows (0 Full / 9 Partial / 6 Gap after the 2026-08-02 correction; mapped against Phionyx v0.3.0) **draft**; Annex A identifier accuracy requires paid-text verification
 
 Each row is structured: framework description → Phionyx mechanism → Coverage → Evidence (file paths + reproducibility command) → "what's still missing" / "deployer responsibility" residual line. Gaps are stated explicitly.
 
@@ -377,7 +377,7 @@ A commercial license is available for use cases where AGPL-3.0 copyleft is not s
 - **Research website:** [phionyx.ai](https://phionyx.ai)
 - **Posts (Deterministic AI Engineering series):** [phionyx.ai/research/posts](https://phionyx.ai/research/posts)
 - **Substack (read direct):** [phionyxresearch.substack.com](https://phionyxresearch.substack.com)
-- **Runtime evidence format (AIREP):** [ai-runtime-evidence-protocol](https://github.com/halvrenofviryel/ai-runtime-evidence-protocol) (v0.1, Experimental) — vendor-neutral open format for a per-decision AI decision receipt; signed, hash-chained, offline-checkable records with two cross-language first-party verifier implementations (Python + Node). The Phionyx RGE is a profile developed alongside it; a released conformant projection is not yet implemented.
+- **Runtime evidence format (AIREP):** [ai-runtime-evidence-protocol](https://github.com/halvrenofviryel/ai-runtime-evidence-protocol) (experimental prerelease published 9 September 2026; the v0.1 line frozen and supported) — vendor-neutral open format for a per-decision AI decision receipt; signed, hash-chained, offline-checkable records with two cross-language first-party verifier implementations (Python + Node). The Phionyx RGE is a profile developed alongside it; a released conformant projection is not yet implemented.
 - **MCP outward layer:** [phionyx-mcp-server](https://github.com/halvrenofviryel/phionyx-mcp-server) — MCP trust boundary governance (descriptor hash, signed RGE v0.2 envelope, audit chain)
 - **Self-governance gate:** [phionyx-pipeline-mcp](https://github.com/halvrenofviryel/phionyx-pipeline-mcp) — self-governance gate over the agent's own "fixed / tested / changed" claims
 - **Inspect AI bridge:** [phionyx-eval-inspect](https://github.com/halvrenofviryel/phionyx-eval-inspect) — RGE envelope chain → Inspect `.eval` log; viewable with `inspect view`
