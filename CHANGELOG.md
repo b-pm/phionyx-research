@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `examples/adversarial/README.md` and cited from the T1 evidence row in
   `docs/mappings/owasp-agentic-ai-2025.md`.
   Addresses [halvrenofviryel/phionyx-research#71](https://github.com/halvrenofviryel/phionyx-research/issues/71).
+- **Docs — LangChain governance wrap tutorial** (`docs/integration/from-langchain-orchestrator.md`):
+  narrative walkthrough for adding Phionyx as a governance wrapper around an
+  existing LangChain producer, using `examples/comparison/with_orchestrator.py`
+  as the canonical reference (no forked example). Cross-linked from
+  `examples/comparison/README.md`. Addresses
+  [halvrenofviryel/phionyx-research#72](https://github.com/halvrenofviryel/phionyx-research/issues/72).
 
 ---
 

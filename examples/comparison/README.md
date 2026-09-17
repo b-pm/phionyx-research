@@ -29,7 +29,10 @@ governed result. The producer is interchangeable — same wrap, different
 upstream.
 
 See [`with_orchestrator.py`](with_orchestrator.py) for a runnable
-illustration. The script auto-detects which producer to use:
+illustration. For a narrative walkthrough aimed at teams with an
+existing LangChain stack, see
+[`docs/integration/from-langchain-orchestrator.md`](../../docs/integration/from-langchain-orchestrator.md).
+The script auto-detects which producer to use:
 
 ```bash
 # Default: deterministic stand-in producer, no extra deps, no API key.
